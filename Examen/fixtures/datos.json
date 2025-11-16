@@ -586,12 +586,12 @@
     "model": "Examen.videojuego",
     "pk": 3,
     "fields": {
-        "nombre": "Sound.",
-        "titulo": "Federal.",
+        "nombre": "Concord",
+        "titulo": "Concord.",
         "ventas_estimadas": 0.6456901811206825,
         "estudio_desarrollo": 1,
         "plataforma": [
-            1
+            
         ]
     }
 },

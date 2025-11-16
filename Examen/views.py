@@ -21,6 +21,13 @@ def videojuego_plataforma_analisis(request,f,n,p):
     return render(request,'Examen/videojuego_plataforma_analisis.html',{'videojuegos': videojuegos})
 
 #------------------------------------------------------------------------------------------
+#Videojuegos sin plataformas ordenados por ventas estimadas
+def videojuego_sin_plataforma(request):
+    videojuegos=Videojuego.objects.filter(plataforma=None).select_related("estudio_desarrollo").prefetch_related("plataforma","analisis").order_by('-ventas_estimadas').all()
+
+    return render(request,'Examen/videojuego_sin_plataforma.html',{'videojuegos': videojuegos})
+
+#------------------------------------------------------------------------------------------
 # Errores
 def mi_error_404(request,exception=None):
     return render(request, 'Errores/404.html',None,None,404)
