@@ -1,9 +1,17 @@
 from django.shortcuts import render
+from .models import Videojuego,Sede,Analisis,Plataforma
 from django.db.models import Q,Prefetch,Sum
 
 
 def index(request):
     return render(request, 'Examen/index.html')
+
+#------------------------------------------------------------------------------------------
+#Videojuegos cuyo nombre contenga fantasy y su sede sea de Estados Unidos
+def videojuego_fantasy(request,t,p):
+    videojuegos=Videojuego.objects.filter(titulo__contains=t,estudio_desarrollo__sedes__pais__contains=p).select_related("estudio_desarrollo").prefetch_related("plataforma","analisis").all()
+
+    return render(request,'Examen/videojuego_fantasy.html',{'videojuegos': videojuegos})
 
 #------------------------------------------------------------------------------------------
 
