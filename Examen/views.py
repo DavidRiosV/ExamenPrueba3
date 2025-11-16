@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Videojuego,Sede,Analisis,Plataforma,Estudio
-from django.db.models import Q,Prefetch,Sum
+from django.db.models import Q,Prefetch,Sum,Avg
 
 
 def index(request):
@@ -33,6 +33,13 @@ def estudios(request,a):
     estudios=Estudio.objects.filter(videojuegos__analisis__fecha_publicacion__year=a).prefetch_related("videojuegos__analisis","sedes","videojuegos").order_by('-videojuegos__analisis__puntuacion').distinct()
 
     return render(request,'Examen/estudios.html',{'estudios': estudios})
+
+#------------------------------------------------------------------------------------------
+#Estudios que pertenezcan a un estudio en concreto y con una puntuacion mayor de 75
+def videojuego_estudio(request,e,p):
+    videojuegos=Videojuego.objects.filter(estudio_desarrollo__nombre=e).annotate(media = Avg("analisis__puntuacion")).filter(media__gt=p).select_related("estudio_desarrollo").prefetch_related("plataforma","analisis").all()
+
+    return render(request,'Examen/videojuego_estudio.html',{'videojuegos': videojuegos})
 
 #------------------------------------------------------------------------------------------
 # Errores
