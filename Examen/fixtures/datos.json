@@ -551,8 +551,8 @@
     "model": "Examen.plataforma",
     "pk": 3,
     "fields": {
-        "nombre": "Option me.",
-        "fabricante": "Into ok."
+        "nombre": "Play Station",
+        "fabricante": "Sony"
     }
 },
 {
@@ -611,7 +611,7 @@
     "pk": 2,
     "fields": {
         "nombre": "May let.",
-        "puntuacion": 0.9782253923161851,
+        "puntuacion": 90,
         "critico": "Moment.",
         "fecha_publicacion": "2020-11-11",
         "videojuego": 2

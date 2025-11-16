@@ -14,7 +14,13 @@ def videojuego_fantasy(request,t,p):
     return render(request,'Examen/videojuego_fantasy.html',{'videojuegos': videojuegos})
 
 #------------------------------------------------------------------------------------------
+#Videojuegos cuyo nombre contenga fantasy y su sede sea de Estados Unidos
+def videojuego_plataforma_analisis(request,f,n,p):
+    videojuegos=Videojuego.objects.filter(Q(plataforma__fabricante=f)|Q(plataforma__nombre__contains=n),analisis__puntuacion__gt=p).select_related("estudio_desarrollo").prefetch_related("plataforma","analisis").distinct()[:3]
 
+    return render(request,'Examen/videojuego_plataforma_analisis.html',{'videojuegos': videojuegos})
+
+#------------------------------------------------------------------------------------------
 # Errores
 def mi_error_404(request,exception=None):
     return render(request, 'Errores/404.html',None,None,404)

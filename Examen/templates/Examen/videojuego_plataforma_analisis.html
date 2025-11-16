@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Videojuego Fantasy</title>
+</head>
+<body>
+    <h1>Videojuegos Fantasy</h1>
+    <ul>
+        {% for v in videojuegos %}
+            <li>Nombre: {{ v.nombre }}</li>
+            <li>Titulo: {{ v.titulo }}</li>
+            <li>Estudio: {{ v.estudio_desarrollo.nombre }}</li>
+            <li>Sedes: 
+                {% for s in v.estudio_desarrollo.sedes.all %}
+                    Nombre:{{ s.nombre }} Pais:{{ s.pais }}
+                {% endfor %}
+            </li>
+            
+            <li>Plataformas:
+                {% for p in v.plataforma.all %}
+                    {{ p.nombre }}
+                {% endfor %}
+            </li>
+
+            <li>Análisis:
+                {% for a in v.analisis.all %}
+                    {{ a.nombre }}
+                {% endfor %}
+            </li>
+        {% empty %}
+            <li>No hay videojuegos con esas características</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
