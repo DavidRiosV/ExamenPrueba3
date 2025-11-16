@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ultimo Analisis</title>
+</head>
+<body>
+    <h1>Ultimo Analisis</h1>
+    <ul>
+        <li>Nombre: {{ analisis.nombre }}</li>
+        <li>Puntuacion: {{ analisis.puntuacion }}</li>
+        <li>Critico: {{ analisis.critico }}</li>
+        <li>Fecha publicacion: {{ analisis.fecha_publicacion }}</li>
+        <li>Videojuego: {{ analisis.videojuego.titulo }}</li>
+
+        <li>Fabricante: 
+            {% for f in analisis.videojuego.plataforma.all %}
+            {{ f.fabricante }}
+            {% endfor %}
+        </li>
+
+        <li>Sede:
+            {% for s in analisis.videojuego.estudio_desarrollo.sedes.all %}
+                {{ s.nombre }}
+            {% endfor %}
+        </li>
+    </ul>
+</body>
+</html>

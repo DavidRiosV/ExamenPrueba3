@@ -42,6 +42,13 @@ def videojuego_estudio(request,e,p):
     return render(request,'Examen/videojuego_estudio.html',{'videojuegos': videojuegos})
 
 #------------------------------------------------------------------------------------------
+#Analisis que pertenecen a un critico a un fabricante y a una sede en concreto
+def analisis_critico(request ,c,f,s):
+    analisis=Analisis.objects.filter(critico=c,videojuego__plataforma__fabricante=f,videojuego__estudio_desarrollo__sedes__nombre=s).select_related("videojuego","videojuego__estudio_desarrollo").prefetch_related("videojuego__plataforma","videojuego__estudio_desarrollo__sedes").order_by("-fecha_publicacion").first()
+
+    return render(request,'Examen/analisis_critico.html',{'analisis': analisis})
+
+#------------------------------------------------------------------------------------------
 # Errores
 def mi_error_404(request,exception=None):
     return render(request, 'Errores/404.html',None,None,404)
