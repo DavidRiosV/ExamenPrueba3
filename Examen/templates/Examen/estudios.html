@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Estudios</title>
+</head>
+<body>
+    <h1>Estudios</h1>
+    <ul>
+        {% for e in estudios %}
+            <li>Nombre del estudio: {{ e.nombre }}</li>
+
+            <li>Sedes:
+                <ul>
+                    {% for s in e.sedes.all %}
+                        <li>Nombre: {{ s.nombre }} - País: {{ s.pais }}</li>
+                    {% empty %}
+                        <li>No hay sedes</li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li>Videojuegos:
+                <ul>
+                    {% for v in e.videojuegos.all %}
+                        <li>Nombre: {{ v.nombre }} - Título: {{ v.titulo }}</li>
+                        <li>Análisis:
+                            <ul>
+                                {% for a in v.analisis.all %}
+                                    <li>{{ a.nombre }} - Puntuación: {{ a.puntuacion }} - Fecha: {{ a.fecha_publicacion }}</li>
+                                {% empty %}
+                                    <li>No hay análisis</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% empty %}
+                        <li>No hay videojuegos</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% empty %}
+            <li>No hay estudios con esas características</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

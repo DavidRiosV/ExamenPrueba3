@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Videojuego,Sede,Analisis,Plataforma
+from .models import Videojuego,Sede,Analisis,Plataforma,Estudio
 from django.db.models import Q,Prefetch,Sum
 
 
@@ -26,6 +26,13 @@ def videojuego_sin_plataforma(request):
     videojuegos=Videojuego.objects.filter(plataforma=None).select_related("estudio_desarrollo").prefetch_related("plataforma","analisis").order_by('-ventas_estimadas').all()
 
     return render(request,'Examen/videojuego_sin_plataforma.html',{'videojuegos': videojuegos})
+
+#------------------------------------------------------------------------------------------
+#Estudios que tengan videojuegos que tienen un analisis de un año en concreto ordenados por su puntuacion 
+def estudios(request,a):
+    estudios=Estudio.objects.filter(videojuegos__analisis__fecha_publicacion__year=a).prefetch_related("videojuegos__analisis","sedes","videojuegos").order_by('-videojuegos__analisis__puntuacion').distinct()
+
+    return render(request,'Examen/estudios.html',{'estudios': estudios})
 
 #------------------------------------------------------------------------------------------
 # Errores
